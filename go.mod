@@ -1,3 +1,3 @@
-module gitlab.ozon.ru/aldalinger/get-bucket
+module github.com/shcoder/get-bucket
 
 go 1.22
