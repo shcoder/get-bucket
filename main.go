@@ -26,22 +26,30 @@ func main() {
 	}
 
 	if ShardCount == 0 || SchemaCount == 0 {
-		fmt.Printf("shard count and schema count must be greater than zero\n")
+		printUsage()
+		flag.PrintDefaults()
 		return
 	}
 
 	companyIDStr := flag.Arg(0)
 	if len(companyIDStr) == 0 {
 		fmt.Printf("Not set company ID\n")
+		printUsage()
 		return
 	}
 	companyId, err := strconv.Atoi(companyIDStr)
 	if err != nil {
 		fmt.Printf("Invalid company ID: %s\n", companyIDStr)
+		printUsage()
 		return
 	}
 
 	fmt.Printf("Company ID: %d\n", companyId)
 	fmt.Printf("Shard: %d\n", companyId%ShardCount/SchemaCount+1)
 	fmt.Printf("Bucket: %d\n", companyId%ShardCount)
+}
+
+func printUsage() {
+	fmt.Printf("shard count and schema count must be greater than zero\n")
+	fmt.Printf("usage: get-bucket [flags] company-id\n")
 }
